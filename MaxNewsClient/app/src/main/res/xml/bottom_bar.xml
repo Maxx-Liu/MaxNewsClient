@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        title="@string/bottom_navigation_home"
+        icon="@drawable/big_hamburger"
+        barColorWhenSelected="#FE3D81"/>
+
+    <tab
+        id="@+id/tab_near"
+        title="@string/bottom_navigation_near"
+        icon="@drawable/big_hamburger"
+        barColorWhenSelected="#FE3D81"/>
+</tabs>

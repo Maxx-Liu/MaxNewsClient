@@ -1,7 +1,7 @@
 package com.max.news.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
@@ -16,7 +16,7 @@ import com.max.news.widget.DialogFactory;
  * @since MaxNews-1.0.0
  */
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected DialogFactory mDialogFactory;
 
