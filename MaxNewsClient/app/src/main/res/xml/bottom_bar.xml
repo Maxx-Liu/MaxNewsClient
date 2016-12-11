@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- inActiveColor：-->
+<!-- 未被选择时，标签的颜色，作用于 icon 和 title。-->
+<!-- activeColor：-->
+<!-- 被选择时，标签的颜色，作用于 icon 和 title，与上面相对应。-->
+<!-- barColorWhenSelected：-->
+<!-- 当该标签被选择时，整个 BottomBar 的背景色。（就是一点，整个底部渐变的那个颜色）-->
+<!-- badgeBackgroundColor：-->
+<!-- 设置 Badges 的背景色，就是右上角显示数字那个。-->
 <tabs>
     <tab
         id="@+id/tab_home"
         title="@string/bottom_navigation_home"
-        icon="@drawable/big_hamburger"
-        barColorWhenSelected="#FE3D81"/>
+        icon="@mipmap/bottom_navigation_home"
+        barColorWhenSelected="#F47C7C"/>
 
     <tab
         id="@+id/tab_near"
         title="@string/bottom_navigation_near"
-        icon="@drawable/big_hamburger"
-        barColorWhenSelected="#FE3D81"/>
+        icon="@mipmap/bottom_navigation_near"
+        barColorWhenSelected="#FCE38A"/>
+
+    <tab
+        id="@+id/tab_personal"
+        title="@string/bottom_navigation_personal"
+        icon="@mipmap/bottom_navigation_personal"
+        barColorWhenSelected="#A1DE93"/>
 </tabs>

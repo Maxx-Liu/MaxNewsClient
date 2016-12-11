@@ -10,6 +10,6 @@
     <style name="MaxTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#F47C7C</item>
         <item name="colorPrimaryDark">#F47C7C</item>
-        <item name="colorAccent">#F7F48B</item>
+        <item name="colorAccent">#FCE38A</item>
     </style>
 </resources>

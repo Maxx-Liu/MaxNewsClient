@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.max.news.ui.MainActivity">
+    <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    </it.sephiroth.android.library.bottomnavigation.BottomNavigation>
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
