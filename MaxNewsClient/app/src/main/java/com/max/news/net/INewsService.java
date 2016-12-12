@@ -1,9 +1,9 @@
 package com.max.news.net;
 
-import com.max.news.pojo.ChannelListBean;
 import com.max.news.net.api.APISet;
+import com.max.news.pojo.ChannelListBean;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -16,6 +16,6 @@ import static com.max.news.net.api.APISet.PARAMS_SIGN;
 
 interface INewsService {
     @GET(APISet.URL_CHANNEL_NEWS)
-    Call<ChannelListBean> getChannelList(@Query(PARAMS_APP_ID) String appId,
-                                         @Query(PARAMS_SIGN) String sign);
+    Observable<ChannelListBean> getChannelList(@Query(PARAMS_APP_ID) String appId,
+                                               @Query(PARAMS_SIGN) String sign);
 }
