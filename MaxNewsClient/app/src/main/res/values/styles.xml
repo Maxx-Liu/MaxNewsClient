@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="MaxTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">#F47C7C</item>
+        <item name="colorPrimary">@color/max_theme_color</item>
         <item name="colorPrimaryDark">#F47C7C</item>
         <item name="colorAccent">#FCE38A</item>
     </style>

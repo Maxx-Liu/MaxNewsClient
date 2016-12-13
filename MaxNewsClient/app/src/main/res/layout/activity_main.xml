@@ -7,7 +7,7 @@
     tools:context="com.max.news.ui.MainActivity">
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+        android:layout_width="60dp"
         android:layout_height="match_parent">
 
     </com.ashokvarma.bottomnavigation.BottomNavigationBar>

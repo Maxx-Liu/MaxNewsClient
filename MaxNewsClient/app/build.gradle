@@ -20,6 +20,8 @@ android {
     }
 }
 
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -49,4 +51,5 @@ dependencies {
     //okhttp
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    compile 'com.google.android:flexbox:0.1.2'
 }

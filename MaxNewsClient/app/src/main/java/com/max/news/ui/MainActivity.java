@@ -29,31 +29,37 @@ package com.max.news.ui;
  * 控制阴影是否显示或隐藏，类似于蒙板，默认为true。
  */
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.widget.FrameLayout;
 
+import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.max.news.R;
+import com.max.news.fragment.HomeFragment;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
-import com.roughike.bottombar.OnTabReselectListener;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener,OnTabSelectListener, OnTabReselectListener {
+public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private static final String TAG = "MainActivity";
+    // the fragment position
+    private static final int TAB_SHOW_HOME_ID = 0;
+    private static final int TAB_SHOW_NEAR_ID = 1;
+    private static final int TAB_SHOW_PERSONAL_ID = 2;
     @BindView(R.id.bottom_bar)
     BottomBar mBottomBar;
     @BindView(R.id.fragment_main)
     FrameLayout mFragmentMain;
     @BindView(R.id.bottom_navigation)
     BottomNavigationBar mBottomNavigation;
-    private BottomBarTab nearby;
+    //private BottomBarTab nearby;
+    private BadgeItem badge;
+    private HomeFragment mHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,67 +70,93 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         requestNet();
         initView();
     }
-
+    private void initBadgeItem(String num){
+        badge=new BadgeItem()
+//                .setBorderWidth(2)//Badge的Border(边界)宽度
+//                .setBorderColor("#FF0000")//Badge的Border颜色
+//                .setBackgroundColor("#9ACD32")//Badge背景颜色
+//                .setGravity(Gravity.RIGHT| Gravity.TOP)//位置，默认右上角
+                .setText(num);//显示的文本
+//                .setTextColor("#F0F8FF")//文本颜色
+//                .setAnimationDuration(2000)
+//                .setHideOnSelect(true)//当选中状态时消失，非选中状态显示
+    }
     private void initView() {
-        mBottomBar.setOnTabSelectListener(this);
-        mBottomBar.setOnTabReselectListener(this);
+//        mBottomBar.setOnTabSelectListener(this);
+//        mBottomBar.setOnTabReselectListener(this);
 
         mBottomNavigation.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
+        /* MODE_DEFAULT:如果Item的个数<=3就会使用MODE_FIXED模式，否则使用MODE_SHIFTING模式
+         * MODE_FIXED:填充模式，未选中的Item会显示文字，没有换挡动画。
+         * MODE_SHIFTING:换挡模式，未选中的Item不会显示文字，选中的会显示文字，
+         *               在切换的时候会有一个像换挡的动画。
+         */
         mBottomNavigation.setMode(BottomNavigationBar.MODE_FIXED);
+        /* BACKGROUND_STYLE_DEFAULT:如果设置的Mode为MODE_FIXED，将使用BACKGROUND_STYLE_STATIC 。
+                                    如果Mode为MODE_SHIFTING将使用BACKGROUND_STYLE_RIPPLE。
+           BACKGROUND_STYLE_STATIC:点击的时候没有水波纹效果
+           BACKGROUND_STYLE_RIPPLE:点击的时候有水波纹效果
+         */
+        mBottomNavigation.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_DEFAULT);
+        //是否自动隐藏
+        mBottomNavigation.setAutoHideEnabled(true);
         mBottomNavigation
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_navigation_home,
                         getString(R.string.bottom_navigation_home))
                         .setInactiveIconResource(R.mipmap.bottom_navigation_home)
-                        .setActiveColorResource(R.color.colorPrimary)
-                        .setInActiveColorResource(R.color.colorPrimary))
+                        /*
+                        在BACKGROUND_STYLE_STATIC下，表示选中Item的图标和文本颜色。而在
+                        BACKGROUND_STYLE_RIPPLE下，表示整个容器的背景色。默认Theme's Primary Color
+                         */
+                        //.setActiveColorResource()
+                        /*
+                        在BACKGROUND_STYLE_STATIC下，表示整个容器的背景色。而在
+                        BACKGROUND_STYLE_RIPPLE下，表示选中Item的图标和文本颜色。默认 Color.WHITE
+                         */
+                        //.setBarBackgroundColor();
+                        //表示未选中Item中的图标和文本颜色。默认为 Color.LTGRAY
+                        .setInActiveColor(Color.WHITE))
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_navigation_near,
                         getString(R.string.bottom_navigation_near))
-                        .setInactiveIconResource(R.mipmap.bottom_navigation_near)
-                        .setActiveColorResource(R.color.colorPrimary)
-                        .setInActiveColorResource(R.color.colorPrimary))
+                        .setInActiveColor(Color.WHITE))
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_navigation_personal,
                         getString(R.string.bottom_navigation_personal))
-                        .setInactiveIconResource(R.mipmap.bottom_navigation_personal)
-                        .setActiveColorResource(R.color.colorPrimary)
-                        .setInActiveColorResource(R.color.colorPrimary))
-                .setFirstSelectedPosition(0)
+                        .setInActiveColor(Color.WHITE))
+                .setFirstSelectedPosition(TAB_SHOW_HOME_ID)
                 .initialise();
         mBottomNavigation.setTabSelectedListener(this);
-
     }
 
     private void requestNet() {
         //NetWorkUntil.requestNetWork();
     }
 
-    @Override
-    public void onTabReSelected(@IdRes int tabId) {
-        switch (tabId) {
-            case R.id.tab_home:
-                nearby.removeBadge();
-                break;
-            case R.id.tab_near:
-
-                break;
-            case R.id.tab_personal:
-
-                break;
-        }
-    }
+//    @Override
+//    public void onTabReSelected(@IdRes int tabId) {
+//        switch (tabId) {
+//            case R.id.tab_home:
+//                nearby.removeBadge();
+//                break;
+//            case R.id.tab_near:
+//
+//                break;
+//            case R.id.tab_personal:
+//
+//                break;
+//        }
+//    }
 
     @Override
     public void onTabSelected(@IdRes int tabId) {
         switch (tabId) {
-            case R.id.tab_home:
-                // 选择指定 id 的标签
-                nearby = mBottomBar.getTabWithId(R.id.tab_home);
-                //设置Navigation信息数量
-                //nearby.setBadgeCount(99);
-                break;
-            case R.id.tab_near:
+            case TAB_SHOW_HOME_ID:
+                if(mHomeFragment == null)mHomeFragment = HomeFragment.newInstance();
 
                 break;
-            case R.id.tab_personal:
+            case TAB_SHOW_NEAR_ID:
+
+                break;
+            case TAB_SHOW_PERSONAL_ID:
 
                 break;
         }
