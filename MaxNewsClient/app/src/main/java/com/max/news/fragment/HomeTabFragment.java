@@ -4,15 +4,25 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.max.news.R;
 import com.max.news.adapter.HomeTabRecyclerAdapter;
+import com.max.news.http.ApiDefault;
+import com.max.news.http.ApiException;
+import com.max.news.http.HttpResult;
+import com.max.news.http.HttpUtil;
+import com.max.news.pojo.ChannelInfoBean;
+import com.max.news.ui.ActivityLifeCycleEvent;
+import com.max.news.ui.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Observer;
 
 /**
  * @auther MaxLiu
@@ -20,14 +30,17 @@ import butterknife.ButterKnife;
  */
 
 public class HomeTabFragment extends BaseFragment {
-    private static final String PARAMS_TITLE = "title";
+    private static final String TAG = "HomeTabFragment";
+    private static final String PARAMS_ID = "tab_id";
+    private static final String PARAMS_TITLE = "tab_title";
     @BindView(R.id.recycler_view_tab)
     RecyclerView mRecyclerViewTab;
     private HomeTabRecyclerAdapter mHomeTabAdapter;
+    private ChannelInfoBean.Pagebean mPagebean;
 
-    public static HomeTabFragment newInstance(String title) {
-
+    public static HomeTabFragment newInstance(String id, String title) {
         Bundle args = new Bundle();
+        args.putString(PARAMS_ID, id);
         args.putString(PARAMS_TITLE, title);
         HomeTabFragment fragment = new HomeTabFragment();
         fragment.setArguments(args);
@@ -40,7 +53,7 @@ public class HomeTabFragment extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_home_tab, container, false);
         ButterKnife.bind(this, mView);
-        initRecyclerView();
+        requestNetWorkData();
         return mView;
     }
 
@@ -48,18 +61,56 @@ public class HomeTabFragment extends BaseFragment {
      * Init home RecyclerView
      */
     private void initRecyclerView() {
-        mHomeTabAdapter = new HomeTabRecyclerAdapter(getActivity());
+        mHomeTabAdapter = new HomeTabRecyclerAdapter(getActivity(),mPagebean);
         mRecyclerViewTab.setLayoutManager(
                 new LinearLayoutManager(
                         getActivity(),
                         LinearLayoutManager.VERTICAL,
                         false));
         mRecyclerViewTab.setAdapter(mHomeTabAdapter);
-        requestNetWorkData();
     }
 
     private void requestNetWorkData() {
         String tabTitle = getArguments().getString(PARAMS_TITLE);
-        //TODO 根据传入的频道标题请求网络数据
+        String tabId = getArguments().getString(PARAMS_ID);
+        String mCacheKey = tabTitle + "_ChannelInfoList_" + tabId;
+        //创建被观察者，传入数据
+        Observable<HttpResult<ChannelInfoBean>> mObservable =
+                ApiDefault.getApiDefault().getChannelInfo(tabId, tabTitle, tabTitle,
+                        "1", "1", "0", "0", "20");
+        //创建观察者
+        Observer<ChannelInfoBean> mObserver = new Observer<ChannelInfoBean>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                String mError;
+                if(e instanceof ApiException){
+                    mError = e.getMessage();
+                    Log.e(TAG, "onError: " + mError);
+                }else {
+                    mError = "请求失败，请稍后再试";
+                    Log.e(TAG, "onError: " + e.toString());
+                }
+            }
+
+            @Override
+            public void onNext(ChannelInfoBean channelInfo) {
+                channelInfo.getRet_code();
+                mPagebean = channelInfo.getPagebean();
+                initRecyclerView();
+            }
+        };
+        HttpUtil.getInstance().toSubscribe(
+                mObservable,
+                mObserver,
+                mCacheKey,
+                ActivityLifeCycleEvent.DESTROY,
+                BaseActivity.getLifrCycle(),
+                false,
+                false);
     }
 }

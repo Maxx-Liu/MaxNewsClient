@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  *
  */
 
-public class ChannelList {
+public class ChannelTitle {
 
         @SerializedName("channelId")
         @Expose

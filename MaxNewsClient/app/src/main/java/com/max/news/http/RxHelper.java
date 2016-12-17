@@ -38,7 +38,8 @@ public class RxHelper {
                         if(tHttpResult.getCode() == 0){
                             return createData(tHttpResult.getData());
                         }else{
-                            return Observable.error(new ApiException(tHttpResult.getError()));
+                            return Observable.error(
+                                    new ApiException(tHttpResult.getError()));
                         }
                     }
                 }).takeUntil(compareLifecycleObservable)

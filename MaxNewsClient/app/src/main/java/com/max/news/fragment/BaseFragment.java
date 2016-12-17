@@ -3,14 +3,21 @@ package com.max.news.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.max.news.ui.BaseActivity;
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  */
 public abstract class BaseFragment extends Fragment {
+    //时间格式
+    private static final String TIME_STYLE = "yyyyMMddHHmmss";
 
     protected BaseActivity mBaseActivity;
 
@@ -53,5 +60,17 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
+    }
+
+    /**
+     * 获取客户端当前时间
+     * @return 格式 yyyyMMddHHmmss
+     */
+    public static String getCurrentTime() {
+        Date mData = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                TIME_STYLE, Locale.getDefault());
+        Log.d("CurrentTime", "Time : " + dateFormat.format(mData));
+        return dateFormat.format(mData);
     }
 }

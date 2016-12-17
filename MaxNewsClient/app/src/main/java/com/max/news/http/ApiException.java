@@ -53,6 +53,7 @@ public class ApiException extends RuntimeException{
 
     ApiException(String detailMessage) {
         super(detailMessage);
+        message = detailMessage;
     }
 
     @Override

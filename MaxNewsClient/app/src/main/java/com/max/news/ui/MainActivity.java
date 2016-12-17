@@ -32,6 +32,8 @@ package com.max.news.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
@@ -39,7 +41,6 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.max.news.R;
 import com.max.news.fragment.HomeFragment;
-import com.roughike.bottombar.BottomBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,8 +52,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private static final int TAB_SHOW_HOME_ID = 0;
     private static final int TAB_SHOW_NEAR_ID = 1;
     private static final int TAB_SHOW_PERSONAL_ID = 2;
-    @BindView(R.id.bottom_bar)
-    BottomBar mBottomBar;
     @BindView(R.id.fragment_main)
     FrameLayout mFragmentMain;
     @BindView(R.id.bottom_navigation)
@@ -67,7 +66,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         setContentView(R.layout.activity_main);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
-        requestNet();
         initView();
     }
     private void initBadgeItem(String num){
@@ -97,7 +95,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
            BACKGROUND_STYLE_STATIC:点击的时候没有水波纹效果
            BACKGROUND_STYLE_RIPPLE:点击的时候有水波纹效果
          */
-        mBottomNavigation.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_DEFAULT);
+        mBottomNavigation.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         //是否自动隐藏
         mBottomNavigation.setAutoHideEnabled(true);
         mBottomNavigation
@@ -105,8 +103,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                         getString(R.string.bottom_navigation_home))
                         .setInactiveIconResource(R.mipmap.bottom_navigation_home)
                         /*
-                        在BACKGROUND_STYLE_STATIC下，表示选中Item的图标和文本颜色。而在
-                        BACKGROUND_STYLE_RIPPLE下，表示整个容器的背景色。默认Theme's Primary Color
+                        在BACKGROUND_STYLE_STATIC 下，表示选中Item的图标和文本颜色。而在
+                        BACKGROUND_STYLE_RIPPLE 下，表示整个容器的背景色。默认Theme's Primary Color
                          */
                         //.setActiveColorResource()
                         /*
@@ -125,33 +123,24 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .setFirstSelectedPosition(TAB_SHOW_HOME_ID)
                 .initialise();
         mBottomNavigation.setTabSelectedListener(this);
+        FragmentTransaction beginTransaction =
+                getSupportFragmentManager().beginTransaction();
+        mHomeFragment = HomeFragment.newInstance(lifecycleSubject);
+        beginTransaction.replace(R.id.fragment_main,mHomeFragment);
+        beginTransaction.commit();
     }
-
-    private void requestNet() {
-        //NetWorkUntil.requestNetWork();
-    }
-
-//    @Override
-//    public void onTabReSelected(@IdRes int tabId) {
-//        switch (tabId) {
-//            case R.id.tab_home:
-//                nearby.removeBadge();
-//                break;
-//            case R.id.tab_near:
-//
-//                break;
-//            case R.id.tab_personal:
-//
-//                break;
-//        }
-//    }
 
     @Override
     public void onTabSelected(@IdRes int tabId) {
+        FragmentTransaction beginTransaction =
+                getSupportFragmentManager().beginTransaction();
         switch (tabId) {
             case TAB_SHOW_HOME_ID:
-                if(mHomeFragment == null)mHomeFragment = HomeFragment.newInstance();
-
+                Log.d(TAG, "onTabSelected: " + TAB_SHOW_HOME_ID);
+                if(mHomeFragment == null) {
+                    mHomeFragment = HomeFragment.newInstance(lifecycleSubject);
+                }
+                beginTransaction.replace(R.id.fragment_main,mHomeFragment);
                 break;
             case TAB_SHOW_NEAR_ID:
 
@@ -160,11 +149,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
                 break;
         }
+        beginTransaction.commit();
     }
 
     @Override
     public void onTabUnselected(int position) {
+        switch (position){
+            case 0:
 
+                break;
+        }
     }
 
     @Override

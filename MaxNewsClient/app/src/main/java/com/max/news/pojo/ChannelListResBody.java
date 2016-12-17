@@ -13,7 +13,7 @@ public class ChannelListResBody {
 
     @SerializedName("channelList")
     @Expose
-    private List<ChannelList> channelList = null;
+    private List<ChannelTitle> mChannelTitles = null;
     @SerializedName("ret_code")
     @Expose
     private Integer retCode;
@@ -26,8 +26,8 @@ public class ChannelListResBody {
      * @return
      * The channelList
      */
-    public List<ChannelList> getChannelList() {
-        return channelList;
+    public List<ChannelTitle> getChannelTitles() {
+        return mChannelTitles;
     }
 
     /**
@@ -35,8 +35,8 @@ public class ChannelListResBody {
      * @param channelList
      * The channelList
      */
-    public void setChannelList(List<ChannelList> channelList) {
-        this.channelList = channelList;
+    public void setChannelTitles(List<ChannelTitle> channelList) {
+        this.mChannelTitles = channelList;
     }
 
     /**

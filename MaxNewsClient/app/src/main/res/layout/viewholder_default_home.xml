@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@android:color/white"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:background="@color/max_theme_color"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/item_img"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="你是谁要啊啊阿萨瓦达撒旦王大所的撒多撒多撒多无多大的我去多撒多无群的撒多无群二奥去撒"/>
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_title"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/item_img"
+        android:lines="4"
+        android:ellipsize="end"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        tools:text="足球，有着“世界第一运动”的美誉，是全球体育界最具影响力的单项体育运动。就在几天前，一场足球盛宴——欧洲杯完美落幕，回首历时近一个月的赛程，足球所带来的热血与激情，伴随着球迷朋友们一起见证了一个个不眠之夜，其魅力自然可见一斑。"/>
+</RelativeLayout>
