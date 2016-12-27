@@ -1,11 +1,11 @@
-package com.max.news.adapter;
+package com.max.news.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 
-import com.max.news.fragment.BaseFragment;
+import com.max.news.base.BaseFragment;
 import com.max.news.pojo.ChannelTitle;
 
 import java.util.ArrayList;
@@ -19,6 +19,10 @@ import java.util.List;
 public class HomePagerAdapter extends FragmentPagerAdapter {
     private ArrayList<BaseFragment> mFragments;
     private List<ChannelTitle> mChannelLists;
+
+    public HomePagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
 
     public HomePagerAdapter(FragmentManager fm, ArrayList<BaseFragment> fragments,
                             List<ChannelTitle> channelLists){

@@ -1,15 +1,11 @@
-package com.max.news.ui;
+package com.max.news.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
+import com.max.news.ui.ActivityLifeCycleEvent;
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import rx.subjects.PublishSubject;
 
@@ -23,9 +19,7 @@ import rx.subjects.PublishSubject;
  * @since MaxNews-1.0.0
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
-    //时间格式
-    private static final String TIME_STYLE = "yyyyMMddHHmmss";
+public class BaseActivity extends AppCompatActivity {
 
     public static final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject = PublishSubject.create();
 
@@ -42,11 +36,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         mDialogFactory.mListenerHolder.setDialogListener(null);
     }
 
+//    protected abstract void initButterKnife();
+//    protected abstract int getLayout();
+//    protected abstract void initEventAndData();
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mDialogFactory.mListenerHolder.saveDialogListenerKey(outState);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,18 +83,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         lifecycleSubject.onNext(ActivityLifeCycleEvent.DESTROY);
-    }
-
-    /**
-     * 获取客户端当前时间
-     * @return 格式 yyyyMMddHHmmss
-     */
-    public String getCurrentTime() {
-        Date mData = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                TIME_STYLE, Locale.getDefault());
-        Log.d("CurrentTime", "Time : " + dateFormat.format(mData));
-        return dateFormat.format(mData);
     }
 
     public static PublishSubject<ActivityLifeCycleEvent> getLifrCycle(){

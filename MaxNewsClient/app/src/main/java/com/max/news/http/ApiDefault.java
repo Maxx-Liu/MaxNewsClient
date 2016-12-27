@@ -39,7 +39,7 @@ public class ApiDefault {
     private static final String PARAMS_RES_GZIP = "showapi_res_gzip";//是否压缩1.压缩0.不压缩
     //系统参数请求值
     private static final String APP_ID = "28715";//app id
-    private static final String SIGN = "DC8210A07AAB56199C0B36F5D24A265A";//签名
+    private static final String SIGN = "d47c41f2a12147e4a5e322f9df976508";//签名
     private static final String SIGN_METHOD = "md5";//其值可选为"md5"或"hmac"
     public static final String RES_GZIP = "0";//是否压缩1.压缩0.不压缩
 

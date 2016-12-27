@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.max.news.ui.BaseActivity;
-import com.max.news.fragment.BaseFragment;
+import com.max.news.base.BaseActivity;
+import com.max.news.base.BaseFragment;
 
 /**
  * 所有自定义DialogFragment的基类，实现了基本的Argument数据传输

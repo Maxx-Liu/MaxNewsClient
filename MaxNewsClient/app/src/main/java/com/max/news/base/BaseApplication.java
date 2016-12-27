@@ -1,4 +1,4 @@
-package com.max.news;
+package com.max.news.base;
 
 import android.app.Application;
 

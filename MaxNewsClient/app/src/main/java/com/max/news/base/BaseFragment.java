@@ -1,11 +1,10 @@
-package com.max.news.fragment;
+package com.max.news.base;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.max.news.ui.BaseActivity;
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
 

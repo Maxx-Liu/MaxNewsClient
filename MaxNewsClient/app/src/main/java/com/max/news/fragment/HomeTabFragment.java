@@ -1,5 +1,6 @@
 package com.max.news.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.max.news.R;
-import com.max.news.adapter.HomeTabRecyclerAdapter;
+import com.max.news.base.BaseActivity;
+import com.max.news.base.BaseFragment;
 import com.max.news.http.ApiDefault;
 import com.max.news.http.ApiException;
 import com.max.news.http.HttpResult;
 import com.max.news.http.HttpUtil;
 import com.max.news.pojo.ChannelInfoBean;
 import com.max.news.ui.ActivityLifeCycleEvent;
-import com.max.news.ui.BaseActivity;
+import com.max.news.ui.adapter.HomeTabRecyclerAdapter;
+import com.max.news.ui.adapter.viewholder.HomeTabItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +40,7 @@ public class HomeTabFragment extends BaseFragment {
     RecyclerView mRecyclerViewTab;
     private HomeTabRecyclerAdapter mHomeTabAdapter;
     private ChannelInfoBean.Pagebean mPagebean;
+    private Context mContext;
 
     public static HomeTabFragment newInstance(String id, String title) {
         Bundle args = new Bundle();
@@ -47,21 +51,35 @@ public class HomeTabFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_home_tab, container, false);
         ButterKnife.bind(this, mView);
-        requestNetWorkData();
         return mView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        requestNetWorkData();
     }
 
     /**
      * Init home RecyclerView
      */
     private void initRecyclerView() {
-        mHomeTabAdapter = new HomeTabRecyclerAdapter(getActivity(),mPagebean);
+        mHomeTabAdapter = new HomeTabRecyclerAdapter(
+                getParentFragment().getActivity(),mPagebean);
+        HomeTabItemDecoration mDecoration = new HomeTabItemDecoration(
+                mContext,HomeTabItemDecoration.HORIZONTAL_LIST);
+        mRecyclerViewTab.addItemDecoration(mDecoration);
         mRecyclerViewTab.setLayoutManager(
                 new LinearLayoutManager(
                         getActivity(),
@@ -76,7 +94,7 @@ public class HomeTabFragment extends BaseFragment {
         String mCacheKey = tabTitle + "_ChannelInfoList_" + tabId;
         //创建被观察者，传入数据
         Observable<HttpResult<ChannelInfoBean>> mObservable =
-                ApiDefault.getApiDefault().getChannelInfo(tabId, tabTitle, tabTitle,
+                ApiDefault.getApiDefault().getChannelInfo(tabId, tabTitle, "",
                         "1", "1", "0", "0", "20");
         //创建观察者
         Observer<ChannelInfoBean> mObserver = new Observer<ChannelInfoBean>() {
@@ -102,6 +120,7 @@ public class HomeTabFragment extends BaseFragment {
                 channelInfo.getRet_code();
                 mPagebean = channelInfo.getPagebean();
                 initRecyclerView();
+                Log.d(TAG,"request success : " + channelInfo.toString());
             }
         };
         HttpUtil.getInstance().toSubscribe(

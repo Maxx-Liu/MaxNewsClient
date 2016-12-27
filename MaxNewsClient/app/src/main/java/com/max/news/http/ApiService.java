@@ -13,6 +13,11 @@ import rx.Observable;
  */
 
 public interface ApiService {
+
+    /**
+     * 获取频道名称列表
+     * @return 频道名称列表
+     */
     @GET(Url.URL_CHANNEL_NEWS)
     Observable<HttpResult<ChannelListResBody>> getChannelList();
 
@@ -26,10 +31,10 @@ public interface ApiService {
      * @param mNeedHtml 是否需要返回正文的html格式，1为需要，其他为不需要
      * @param mNeedAllList 是否需要最全的返回资料。包括每一段文本和每一张图。用list的形式返回
      * @param mNeedResult 每页返回记录数，值在20-100之间。
-     * @return
+     * @return 新闻信息列表
      */
     @GET(Url.URL_SEARCH_NEWS)
-    public Observable<HttpResult<ChannelInfoBean>> getChannelInfo(
+    Observable<HttpResult<ChannelInfoBean>> getChannelInfo(
             @Query("channelId") String mChannelId,
             @Query("channelName") String mChannelName,
             @Query("title") String mChannelTitle,
