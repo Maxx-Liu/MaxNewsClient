@@ -1,4 +1,4 @@
-package com.max.news.ui.adapter.viewholder;
+package com.max.news.home.channelist.adapter.viewholder;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,7 +18,7 @@ import android.view.View;
 
 public class HomeTabItemDecoration extends RecyclerView.ItemDecoration {
 
-    private static final int[] ATTRS = new int[]{android.support.v7.appcompat.R.color.};
+    private static final int[] ATTRS = new int[]{android.support.design.R.color.switch_thumb_normal_material_dark};
     // 线性列表 方向
     public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;

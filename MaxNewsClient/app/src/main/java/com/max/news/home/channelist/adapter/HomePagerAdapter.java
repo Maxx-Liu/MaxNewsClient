@@ -1,4 +1,4 @@
-package com.max.news.ui.adapter;
+package com.max.news.home.channelist.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 
 import com.max.news.base.BaseFragment;
-import com.max.news.pojo.ChannelTitle;
+import com.max.news.home.channelist.pojo.ChannelTitle;
 
 import java.util.ArrayList;
 import java.util.List;

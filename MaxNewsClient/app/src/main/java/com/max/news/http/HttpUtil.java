@@ -1,6 +1,6 @@
 package com.max.news.http;
 
-import com.max.news.ui.ActivityLifeCycleEvent;
+import com.max.news.base.ActivityLifeCycleEvent;
 
 import rx.Observable;
 import rx.Observer;

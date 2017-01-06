@@ -1,15 +1,27 @@
 package com.max.news.base;
 
 /**
- * View的基类
+ * View的基类，用于实现View层的基础操作.
  *
  * @auther MaxLiu
  * @time 2016/12/26
  */
 
-public interface BaseView {
+public interface BaseView<T> {
 
-    void showError(String msg);
+    /**
+     * 在View中设置Presenter
+     * @param presenter 传入的对应presenter实例
+     */
+    void setPresenter(T presenter);
 
-    void useNightMode(boolean isNight);
+    /**
+     * 显示加载Dialog
+     */
+    void showLoading(String msg);
+
+    /**
+     * 隐藏加载Dialog
+     */
+    void hideLoading();
 }

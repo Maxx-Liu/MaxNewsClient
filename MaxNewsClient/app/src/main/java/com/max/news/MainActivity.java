@@ -1,4 +1,4 @@
-package com.max.news.ui;
+package com.max.news;
 /**
  * BottomBar属性一览：
  * bb_tabXmlResource：
@@ -39,9 +39,9 @@ import android.widget.FrameLayout;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.max.news.R;
 import com.max.news.base.BaseActivity;
-import com.max.news.fragment.HomeFragment;
+import com.max.news.home.HomeFragment;
+import com.max.news.home.HomePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         mHomeFragment = HomeFragment.newInstance(lifecycleSubject);
         beginTransaction.replace(R.id.fragment_main,mHomeFragment);
         beginTransaction.commit();
+        new HomePresenter(mHomeFragment);
     }
 
     @Override

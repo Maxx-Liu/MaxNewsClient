@@ -1,7 +1,7 @@
 package com.max.news.http;
 
-import com.max.news.pojo.ChannelInfoBean;
-import com.max.news.pojo.ChannelListResBody;
+import com.max.news.home.channelist.pojo.ChannelInfoBean;
+import com.max.news.home.channelist.pojo.ChannelListResBody;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

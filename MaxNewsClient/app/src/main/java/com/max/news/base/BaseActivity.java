@@ -3,7 +3,6 @@ package com.max.news.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.max.news.ui.ActivityLifeCycleEvent;
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
 

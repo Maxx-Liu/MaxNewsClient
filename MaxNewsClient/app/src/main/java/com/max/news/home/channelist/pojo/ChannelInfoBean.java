@@ -1,4 +1,4 @@
-package com.max.news.pojo;
+package com.max.news.home.channelist.pojo;
 
 import java.util.List;
 

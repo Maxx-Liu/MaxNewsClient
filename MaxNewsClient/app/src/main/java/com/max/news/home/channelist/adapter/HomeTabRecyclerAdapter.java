@@ -1,4 +1,4 @@
-package com.max.news.ui.adapter;
+package com.max.news.home.channelist.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.max.news.R;
-import com.max.news.pojo.ChannelInfoBean;
-import com.max.news.ui.adapter.viewholder.ViewHolderDefault;
+import com.max.news.home.channelist.pojo.ChannelInfoBean;
+import com.max.news.home.channelist.adapter.viewholder.ViewHolderDefault;
 
 /**
  * @auther MaxLiu

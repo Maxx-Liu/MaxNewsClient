@@ -1,4 +1,4 @@
-package com.max.news.ui;
+package com.max.news.base;
 
 /**
  * 枚举：Activity的几种状态
