@@ -25,6 +25,6 @@ public interface TabPagerContract {
         /**
          * 请求数据
          */
-        void requestData(String tabId,String tabTitle);
+        void requestData(String tabId,String tabTitle,int page);
     }
 }

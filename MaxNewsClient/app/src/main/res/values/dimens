@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tab Height -->
+    <dimen name="tab_height">40dp</dimen>
+    <!-- New Photo Height -->
+    <dimen name="news_photo_height">150dp</dimen>
+    <!-- News Title -->
+    <dimen name="news_title_size">16sp</dimen>
+    <integer name="news_title_max_lines">1</integer>
+    <!-- News Content -->
+    <dimen name="news_content_size">14sp</dimen>
+    <integer name="news_content_max_lines">5</integer>
+    <!-- Card View -->
+    <dimen name="card_view_radius">3dp</dimen>
+    <dimen name="card_view_elevation">8dp</dimen>
+</resources>

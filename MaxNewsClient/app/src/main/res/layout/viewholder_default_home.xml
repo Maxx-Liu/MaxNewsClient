@@ -1,44 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:background="@android:color/white"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/item_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerVertical="true"
-        android:background="@color/max_theme_color"
-        tools:ignore="ContentDescription"/>
-
-    <TextView
-        android:id="@+id/item_title"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/item_img"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:text="你是谁要啊啊阿萨瓦达撒旦王大所的撒多撒多撒多无多大的我去多撒多无群的撒多无群二奥去撒"/>
+        android:background="@android:color/background_light"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/card_view_radius"
+        app:cardElevation="@dimen/card_view_elevation">
 
-    <TextView
-        android:id="@+id/item_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/item_img"
-        android:lines="4"
-        android:ellipsize="end"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        tools:text="足球，有着“世界第一运动”的美誉，是全球体育界最具影响力的单项体育运动。就在几天前，一场足球盛宴——欧洲杯完美落幕，回首历时近一个月的赛程，足球所带来的热血与激情，伴随着球迷朋友们一起见证了一个个不眠之夜，其魅力自然可见一斑。"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/news_header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/news_photo_height">
+
+                <ImageView
+                    android:id="@+id/news_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/max_theme_color"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:maxLines="@integer/news_title_max_lines"
+                    android:padding="5dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/news_title_size"
+                    android:textStyle="bold"
+                    tools:text="我是新闻标题"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/news_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:ellipsize="end"
+                android:maxLines="@integer/news_content_max_lines"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/news_content_size"
+                tools:text="足球，有着“世界第一运动”的美誉，是全球体育界最具影响力的单项体育运动。就在几天前，一场足球盛宴——欧洲杯完美落幕，回首历时近一个月的赛程，足球所带来的热血与激情，伴随着球迷朋友们一起见证了一个个不眠之夜，其魅力自然可见一斑。"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

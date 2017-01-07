@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="max_theme_color">#459D72</color>
+    <!-- ViewPager BackGround -->
+    <color name="bg_viewpager">#BDC3C7</color>
 </resources>

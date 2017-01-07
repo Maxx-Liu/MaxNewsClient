@@ -23,4 +23,5 @@ public class GliderUtil {
     public static void loadHttpImage(Context context, String path, ImageView imageView){
         Glide.with(context).load(path).into(imageView);
     }
+
 }

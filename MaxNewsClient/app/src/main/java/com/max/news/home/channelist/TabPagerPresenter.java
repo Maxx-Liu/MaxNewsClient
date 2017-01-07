@@ -2,7 +2,6 @@ package com.max.news.home.channelist;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.max.news.base.ActivityLifeCycleEvent;
 import com.max.news.base.BaseActivity;
@@ -41,17 +40,13 @@ public class TabPagerPresenter implements TabPagerContract.Presenter{
 
     }
 
-    public void bindHasData() {
-
-    }
-
     @Override
-    public void requestData(String tabId,String tabTitle) {
+    public void requestData(String tabId,String tabTitle,int page) {
         String mCacheKey = tabId + "_list_" + tabTitle;
         //创建被观察者，传入数据
         Observable<HttpResult<ChannelInfoBean>> mObservable =
                 ApiDefault.getApiDefault().getChannelInfo(tabId, tabTitle, "",
-                        "1", "1", "0", "0", "20");
+                        String.valueOf(page), "1", "0", "0", "20");
         //创建观察者
         Observer<ChannelInfoBean> mObserver = new Observer<ChannelInfoBean>() {
             @Override
