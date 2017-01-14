@@ -79,15 +79,12 @@ public class HomeTabFragment extends BaseFragment implements TabPagerContract.Vi
                         getActivity(),
                         LinearLayoutManager.VERTICAL,
                         false));
-        if (mAdapters.get(getArguments().getString(PARAMS_ID)) == null) {
-            HomeTabRecyclerAdapter mHomeTabAdapter = new HomeTabRecyclerAdapter(
+        if (mHomeTabAdapter == null) {
+            mHomeTabAdapter = new HomeTabRecyclerAdapter(
                     getParentFragment().getActivity());
             mHomeTabAdapter.addPagebean(pagebean);
-            mAdapters.put(getArguments().getString(PARAMS_ID), mHomeTabAdapter);
             mRecyclerViewTab.setAdapter(mHomeTabAdapter);
         } else {
-            HomeTabRecyclerAdapter mHomeTabAdapter =
-                    mAdapters.get(getArguments().getString(PARAMS_ID));
             mHomeTabAdapter.addPagebean(pagebean);
         }
         mRecyclerViewTab.addItemDecoration(

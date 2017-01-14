@@ -25,6 +25,7 @@ public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private int mPage = 1;
     private List<ChannelInfoBean.Pagebean.ContentlistBean> mContentlist = new ArrayList<>();
 
 
@@ -36,10 +37,14 @@ public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void addPagebean(ChannelInfoBean.Pagebean mPagebean) {
         if (mContentlist.size() == 0) {
             mContentlist = mPagebean.getContentlist();
+            mPage = 1;
         } else {
-            for (ChannelInfoBean.Pagebean.ContentlistBean mContent :
-                    mPagebean.getContentlist()) {
-                mContentlist.add(mContent);
+            if(mPagebean.getCurrentPage() > mPage) {
+                mPage++;
+                for (ChannelInfoBean.Pagebean.ContentlistBean mContent :
+                        mPagebean.getContentlist()) {
+                    mContentlist.add(mContent);
+                }
             }
         }
     }

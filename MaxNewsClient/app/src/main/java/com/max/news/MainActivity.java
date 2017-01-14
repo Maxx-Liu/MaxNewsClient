@@ -46,6 +46,16 @@ import com.max.news.home.HomePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * MainActivity,此app的启动活动
+ *
+ * 实现了底部导航,可复用,换掉添加的Fragment或者直接修改HomeFragment{@link HomeFragment}
+ * 等对应的Fragment即可.
+ *
+ * @author MaxLiu
+ * @see HomeFragment
+ */
+
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private static final String TAG = "MainActivity";
