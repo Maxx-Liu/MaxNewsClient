@@ -3,14 +3,12 @@ package com.max.news.utils.img;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.max.news.utils.BaseImageViewLoaderUtil;
-
 /**
  * @auther MaxLiu
  * @time 2017/1/16
  */
 
-public class GlideLoaderUtil implements BaseImageViewLoaderUtil {
+public class GlideLoaderUtil implements IImageLoader {
 
     @Override
     public void loadImage(String url, ImageView imageView) {

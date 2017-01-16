@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
@@ -48,7 +49,7 @@ import butterknife.ButterKnife;
 
 /**
  * MainActivity,此app的启动活动
- *
+ * <p>
  * 实现了底部导航,可复用,换掉添加的Fragment或者直接修改HomeFragment{@link HomeFragment}
  * 等对应的Fragment即可.
  *
@@ -72,15 +73,24 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private HomeFragment mHomeFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initlayout() {
         setContentView(R.layout.activity_main);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
         initView();
     }
-    private void initBadgeItem(String num){
-        badge=new BadgeItem()
+
+    @Override
+    public void widgetClick(View v) {
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    private void initBadgeItem(String num) {
+        badge = new BadgeItem()
 //                .setBorderWidth(2)//Badge的Border(边界)宽度
 //                .setBorderColor("#FF0000")//Badge的Border颜色
 //                .setBackgroundColor("#9ACD32")//Badge背景颜色
@@ -90,6 +100,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 //                .setAnimationDuration(2000)
 //                .setHideOnSelect(true)//当选中状态时消失，非选中状态显示
     }
+
     private void initView() {
 //        mBottomBar.setOnTabSelectListener(this);
 //        mBottomBar.setOnTabReselectListener(this);
@@ -137,7 +148,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         FragmentTransaction beginTransaction =
                 getSupportFragmentManager().beginTransaction();
         mHomeFragment = HomeFragment.newInstance(lifecycleSubject);
-        beginTransaction.replace(R.id.fragment_main,mHomeFragment);
+        beginTransaction.replace(R.id.fragment_main, mHomeFragment);
         beginTransaction.commit();
         new HomePresenter(mHomeFragment);
     }
@@ -149,10 +160,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         switch (tabId) {
             case TAB_SHOW_HOME_ID:
                 Log.d(TAG, "onTabSelected: " + TAB_SHOW_HOME_ID);
-                if(mHomeFragment == null) {
+                if (mHomeFragment == null) {
                     mHomeFragment = HomeFragment.newInstance(lifecycleSubject);
                 }
-                beginTransaction.replace(R.id.fragment_main,mHomeFragment);
+                beginTransaction.replace(R.id.fragment_main, mHomeFragment);
                 break;
             case TAB_SHOW_NEAR_ID:
 
@@ -166,7 +177,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabUnselected(int position) {
-        switch (position){
+        switch (position) {
             case 0:
 
                 break;

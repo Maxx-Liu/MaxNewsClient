@@ -1,14 +1,16 @@
-package com.max.news.utils;
+package com.max.news.utils.img;
 
 import android.content.Context;
 import android.widget.ImageView;
 
 /**
+ * 定义项目需要实现的图片加载功能接口
+ *
  * @auther MaxLiu
  * @time 2017/1/16
  */
 
-public interface BaseImageViewLoaderUtil {
+public interface IImageLoader {
     //无占位图
     void loadImage(String url, ImageView imageView);
 

@@ -3,8 +3,6 @@ package com.max.news.utils.img;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.max.news.utils.BaseImageViewLoaderUtil;
-
 /**
  * @auther MaxLiu
  * @time 2017/1/16
@@ -20,7 +18,7 @@ public class ImageLoaderUtil {
 
     private static ImageLoaderUtil mInstance;
 
-    private BaseImageViewLoaderUtil mStrategy;
+    private IImageLoader mStrategy;
 
     public ImageLoaderUtil() {
         mStrategy = new GlideLoaderUtil();
@@ -75,7 +73,7 @@ public class ImageLoaderUtil {
      *
      * @param strategy
      */
-    public void setLoadImgStrategy(BaseImageViewLoaderUtil strategy) {
+    public void setLoadImgStrategy(IImageLoader strategy) {
         mStrategy = strategy;
     }
 
