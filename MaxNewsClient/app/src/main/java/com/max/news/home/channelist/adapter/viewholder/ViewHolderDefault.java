@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.google.gson.internal.LinkedTreeMap;
 import com.max.news.R;
 import com.max.news.home.channelist.pojo.ChannelInfoBean;
-import com.max.news.utils.GliderUtil;
+import com.max.news.utils.img.GlideUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +38,7 @@ public class ViewHolderDefault extends RecyclerView.ViewHolder {
         mContent.setText(mContentlistBean.getDesc());
         if(mContentlistBean.getImageurls().size() != 0) {
             LinkedTreeMap list = (LinkedTreeMap) mContentlistBean.getImageurls().get(0);
-            GliderUtil.loadHttpImage(context, list.get("url").toString(), mImageView);
+            GlideUtil.loadImageView(context, list.get("url").toString(), mImageView);
         }else{
             mImageView.setVisibility(View.GONE);
             mTitle.setTextColor(Color.BLACK);
