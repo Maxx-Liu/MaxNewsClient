@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.max.news.R;
 
 /**
  * @auther MaxLiu
@@ -32,6 +33,8 @@ public class GlideUtil {
     public static void loadImageView(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .into(mImageView);
     }
 
@@ -39,6 +42,8 @@ public class GlideUtil {
     public static void loadImageViewSize(Context mContext, String path, int width, int height, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .override(width, height)
                 .into(mImageView);
     }
@@ -66,6 +71,8 @@ public class GlideUtil {
     public static void loadImageViewCache(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .skipMemoryCache(true)
                 .into(mImageView);
     }
@@ -74,6 +81,8 @@ public class GlideUtil {
     public static void loadImageViewPriority(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .priority(Priority.NORMAL)
                 .into(mImageView);
     }
@@ -94,6 +103,8 @@ public class GlideUtil {
     public static void loadImageViewDiskCache(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(mImageView);
     }
@@ -106,6 +117,8 @@ public class GlideUtil {
     public static void loadImageViewAnim(Context mContext, String path, int anim, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .animate(anim)
                 .into(mImageView);
     }
@@ -118,6 +131,8 @@ public class GlideUtil {
     public static void loadImageViewThumbnail(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .thumbnail(0.1f)
                 .into(mImageView);
     }
@@ -130,6 +145,8 @@ public class GlideUtil {
     public static void loadImageViewCrop(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext)
                 .load(path)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .centerCrop()
                 .into(mImageView);
     }
@@ -139,6 +156,8 @@ public class GlideUtil {
         Glide.with(mContext)
                 .load(path)
                 .asGif()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .into(mImageView);
     }
 
@@ -147,6 +166,8 @@ public class GlideUtil {
         Glide.with(mContext)
                 .load(path)
                 .asBitmap()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .into(mImageView);
     }
 
@@ -157,6 +178,8 @@ public class GlideUtil {
         Glide.with(mContext)
                 .load(path)
                 .listener(requstlistener)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .into(mImageView);
     }
 
@@ -167,6 +190,8 @@ public class GlideUtil {
         Glide.with(mContext)
                 .load(path)
                 .centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.loading_falied)
                 .into(simpleTarget);
     }
 
