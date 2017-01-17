@@ -1,6 +1,9 @@
 package com.max.news.utils;
 
 import android.os.Environment;
+import android.util.Log;
+
+import com.max.news.application.NewsApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,5 +50,21 @@ public class FileUtil {
      */
     public static String getSavePath(String folder) {
         return Environment.getExternalStorageDirectory() + "/" + folder;
+    }
+
+    /**
+     * @return  创建缓存目录
+     */
+    public static File getCacheDirectory()
+    {
+        File file = new File(NewsApplication.getInstance().getApplicationContext().getExternalCacheDir(), "MyCache");
+        if(!file.exists())
+        {
+            boolean b = file.mkdirs();
+            Log.e("file", "文件不存在  创建文件    "+b);
+        }else{
+            Log.e("file", "文件存在");
+        }
+        return file;
     }
 }

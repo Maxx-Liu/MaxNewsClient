@@ -41,8 +41,8 @@ import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.max.news.base.BaseActivity;
-import com.max.news.home.HomeFragment;
-import com.max.news.home.HomePresenter;
+import com.max.news.MVP.home.HomeFragment;
+import com.max.news.MVP.home.HomePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
