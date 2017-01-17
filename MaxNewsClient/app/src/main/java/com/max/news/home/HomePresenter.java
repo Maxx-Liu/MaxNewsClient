@@ -26,7 +26,6 @@ public class HomePresenter implements HomeContract.Presenter {
 
     public HomePresenter(HomeContract.View iView){
         IView = iView;
-        iView.setPresenter(this);
     }
 
     @Override

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
@@ -20,6 +20,10 @@ android {
     }
     lintOptions {
         warning 'InvalidPackage'
+    }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
     }
 }
 
@@ -60,16 +64,14 @@ dependencies {
     compile 'com.google.android:flexbox:0.1.2'
     compile 'com.orhanobut:hawk:2.0.1'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-
     //Log
     compile 'com.orhanobut:logger:1.15'
     compile 'javax.inject:javax.inject:1'
-
-//    //Dagger
-//    apt 'com.google.dagger:dagger-compiler:2.2'
-//    provided 'org.glassfish:javax.annotation:10.0-b28'
-//    compile 'com.google.dagger:dagger:2.2'
+    //Dagger
+    compile 'com.google.dagger:dagger:2.8'
+    apt 'com.google.dagger:dagger-compiler:2.8'
+    //java注解
+    compile 'org.glassfish:javax.annotation:10.0-b28'
     //pull refresh
-    //compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
     compile 'com.jwenfeng.pulltorefresh:library:1.0.1'
 }
