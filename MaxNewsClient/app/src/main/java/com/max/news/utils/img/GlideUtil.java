@@ -61,6 +61,7 @@ public class GlideUtil {
         Glide.with(mContext)
                 .load(path)
                 .placeholder(R.drawable.placeholder)
+                .fitCenter()
                 .error(R.drawable.loading_falied)
                 .into(mImageView);
     }

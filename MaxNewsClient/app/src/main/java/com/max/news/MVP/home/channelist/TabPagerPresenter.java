@@ -2,14 +2,21 @@ package com.max.news.MVP.home.channelist;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
+import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 import com.max.news.base.ActivityLifeCycleEvent;
 import com.max.news.base.BaseActivity;
-import com.max.news.MVP.home.channelist.pojo.ChannelInfoBean;
-import com.max.news.db.http.ApiDefault;
 import com.max.news.db.http.ApiException;
+import com.max.news.db.http.ApiService;
 import com.max.news.db.http.HttpResult;
 import com.max.news.db.http.HttpUtil;
+import com.max.news.db.http.RetrofitUtil;
+import com.max.news.db.http.Url;
+import com.max.news.utils.LogUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Observable;
 import rx.Observer;
@@ -21,62 +28,62 @@ import rx.Observer;
  * @time 2016/12/26
  */
 
-public class TabPagerPresenter implements TabPagerContract.Presenter{
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+public class TabPagerPresenter implements TabPagerContract.Presenter {
     private TabPagerContract.View IView;
+    private TabPagerContract.Model IModel;
+    private Map<String, String> map = new HashMap<>();
 
-    public TabPagerPresenter(TabPagerContract.View iView,
-                             TabLayout tabLayout,
-                             ViewPager viewPager) {
+    public TabPagerPresenter(TabPagerContract.View iView) {
         IView = iView;
         IView.setPresenter(this);
-        mTabLayout = tabLayout;
-        mViewPager = viewPager;
+        IModel = new TabPagerModel();
     }
 
     @Override
     public void start() {
-
+        map.put(Url.PARAM_CHANNEL_TITLE, "");
+        map.put(Url.PARAM_CHANNEL_NEED_CONTENT, "0");
+        map.put(Url.PARAM_CHANNEL_NEED_HTML, "0");
+        map.put(Url.PARAM_CHANNEL_NEED_ALLLIST, "0");
+        map.put(Url.PARAM_CHANNEL_NEED_RESULT, "20");
     }
 
     @Override
-    public void requestData(String tabId,String tabTitle,int page) {
-        String mCacheKey = tabId + "_list_" + tabTitle;
-        //创建被观察者，传入数据
-        Observable<HttpResult<ChannelInfoBean>> mObservable =
-                ApiDefault.getApiDefault().getChannelInfo(tabId, tabTitle, "",
-                        String.valueOf(page), "1", "0", "0", "20");
-        //创建观察者
-        Observer<ChannelInfoBean> mObserver = new Observer<ChannelInfoBean>() {
-            @Override
-            public void onCompleted() {
+    public void detach() {
+        map.clear();
+    }
 
-            }
+    @Override
+    public void requestData(String tabId, String tabTitle, int page) {
+        map.put(Url.PARAM_CHANNEL_NAME, tabTitle);
+        map.put(Url.PARAM_CHANNEL_PAGE, String.valueOf(page));
+        Log.e("Info", "page : " + String.valueOf(page));
+        IModel.getChannelInfo(map,page)
+                .subscribe(new Observer<ChannelInfoBean>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void onError(Throwable e) {
-                String mError;
-                if(e instanceof ApiException){
-                    mError = e.getMessage();
-                }else {
-                    mError = "请求失败，请稍后再试";
-                }
-            }
+                    }
 
-            @Override
-            public void onNext(ChannelInfoBean channelInfo) {
-                channelInfo.getRet_code();
-                IView.loadRecyclerView(channelInfo.getPagebean());
-            }
-        };
-        HttpUtil.getInstance().toSubscribe(
-                mObservable,
-                mObserver,
-                mCacheKey,
-                ActivityLifeCycleEvent.DESTROY,
-                BaseActivity.getLifrCycle(),
-                false,
-                false);
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        String mError;
+                        if (e instanceof ApiException) {
+                            mError = e.getMessage();
+                        } else {
+                            mError = "请求失败，请稍后再试";
+                        }
+                        //LogUtil.e("Tab", mError);
+                        Log.e("Tab", "Failed!!!" + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(ChannelInfoBean channelInfo) {
+                        channelInfo.getRet_code();
+                        IView.loadRecyclerView(channelInfo.getPagebean());
+                        Log.e("Tab", "SUCCESS!!!");
+                    }
+                });
     }
 }

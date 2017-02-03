@@ -1,5 +1,6 @@
-package com.max.news.MVP.home.channelist.pojo;
+package com.max.news.MVP.home.channelist.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -75,8 +76,9 @@ public class ChannelInfoBean {
             this.contentlist = contentlist;
         }
 
-        public  class ContentlistBean {
+        public  class ContentlistBean implements Serializable{
 
+            private boolean havePic;
             private String pubDate;
             private String title;
             private String channelName;
@@ -175,6 +177,14 @@ public class ChannelInfoBean {
 
             public void setImageurls(List<?> imageurls) {
                 this.imageurls = imageurls;
+            }
+
+            public boolean isHavePic() {
+                return havePic;
+            }
+
+            public void setHavePic(boolean havePic) {
+                this.havePic = havePic;
             }
         }
     }

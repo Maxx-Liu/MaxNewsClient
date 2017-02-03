@@ -1,15 +1,18 @@
 package com.max.news.MVP.home.channelist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
@@ -17,7 +20,7 @@ import com.max.news.R;
 import com.max.news.base.BaseFragment;
 import com.max.news.MVP.home.channelist.adapter.HomeTabRecyclerAdapter;
 import com.max.news.MVP.home.channelist.adapter.viewholder.HomeTabItemDecoration;
-import com.max.news.MVP.home.channelist.pojo.ChannelInfoBean;
+import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +30,8 @@ import butterknife.ButterKnife;
  * @time 2016/12/15
  */
 
-public class HomeTabFragment extends BaseFragment implements TabPagerContract.View , BaseRefreshListener{
+public class HomeTabFragment extends BaseFragment implements
+        TabPagerContract.View , BaseRefreshListener,HomeTabRecyclerAdapter.ItemOnClickListener{
     private static final String PARAMS_ID = "tab_id";
     private static final String PARAMS_TITLE = "tab_title";
     @BindView(R.id.recycler_view_tab)
@@ -63,7 +67,6 @@ public class HomeTabFragment extends BaseFragment implements TabPagerContract.Vi
         View mView = inflater.inflate(R.layout.fragment_home_tab, container, false);
         ButterKnife.bind(this, mView);
         mPullRefresh.setRefreshListener(this);
-        //设置刷新风格
         return mView;
     }
 
@@ -76,46 +79,33 @@ public class HomeTabFragment extends BaseFragment implements TabPagerContract.Vi
                 mContext, HomeTabItemDecoration.HORIZONTAL_LIST);
         mRecyclerViewTab.setLayoutManager(
                 new LinearLayoutManager(
-                        getActivity(),
+                        getParentFragment().getActivity(),
                         LinearLayoutManager.VERTICAL,
                         false));
         if (mHomeTabAdapter == null) {
             mHomeTabAdapter = new HomeTabRecyclerAdapter(
-                    getParentFragment().getActivity());
-            mHomeTabAdapter.addPagebean(pagebean);
+                    getParentFragment().getActivity(),this);
             mRecyclerViewTab.setAdapter(mHomeTabAdapter);
-        } else {
-            mHomeTabAdapter.addPagebean(pagebean);
         }
+        mHomeTabAdapter.addPagebean(pagebean);
         mRecyclerViewTab.addItemDecoration(
                 new DividerItemDecoration(mContext, DividerItemDecoration.HORIZONTAL));
 
         mPullRefresh.finishRefresh();
         mPullRefresh.finishLoadMore();
+
     }
 
     @Override
     public void setPresenter(TabPagerContract.Presenter presenter) {
         mPresenter = presenter;
-    }
-
-    @Override
-    public void showLoading(String msg) {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
+        mPresenter.start();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPage = 1;
-        mPresenter.start();
-        mPresenter.requestData(getArguments().getString(PARAMS_ID),
-                getArguments().getString(PARAMS_TITLE),mPage);
+        refresh();
     }
 
 
@@ -128,13 +118,12 @@ public class HomeTabFragment extends BaseFragment implements TabPagerContract.Vi
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        mPresenter.detach();
     }
 
     @Override
     public void refresh() {
         mPage = 1;
-        mPresenter.start();
         mPresenter.requestData(getArguments().getString(PARAMS_ID),
                 getArguments().getString(PARAMS_TITLE),mPage);
     }
@@ -142,8 +131,12 @@ public class HomeTabFragment extends BaseFragment implements TabPagerContract.Vi
     @Override
     public void loadMore() {
         mPage++;
-        mPresenter.start();
         mPresenter.requestData(getArguments().getString(PARAMS_ID),
                 getArguments().getString(PARAMS_TITLE),mPage);
+    }
+
+    @Override
+    public void OnClick(ChannelInfoBean.Pagebean.ContentlistBean mContentlistBean) {
+
     }
 }

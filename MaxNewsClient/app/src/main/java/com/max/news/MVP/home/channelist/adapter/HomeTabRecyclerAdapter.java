@@ -3,12 +3,13 @@ package com.max.news.MVP.home.channelist.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.max.news.R;
 import com.max.news.MVP.home.channelist.adapter.viewholder.ViewHolderDefault;
 import com.max.news.MVP.home.channelist.adapter.viewholder.ViewHolderNoImg;
-import com.max.news.MVP.home.channelist.pojo.ChannelInfoBean;
+import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,11 @@ import java.util.List;
  */
 
 public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public interface ItemOnClickListener{
+        void OnClick(ChannelInfoBean.Pagebean.ContentlistBean mContentlistBean);
+    }
+    private ItemOnClickListener itemOnClickListener;
+
     private static final int TYPE_DEFAULT = 0;
     private static final int TYPE_NO_IMG = 1;
 
@@ -29,9 +35,10 @@ public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private List<ChannelInfoBean.Pagebean.ContentlistBean> mContentlist = new ArrayList<>();
 
 
-    public HomeTabRecyclerAdapter(Context context) {
+    public HomeTabRecyclerAdapter(Context context,ItemOnClickListener itemOnClickListener) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.itemOnClickListener = itemOnClickListener;
     }
 
     public void addPagebean(ChannelInfoBean.Pagebean mPagebean) {
@@ -64,13 +71,22 @@ public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_DEFAULT) {
             ViewHolderDefault mHolder = (ViewHolderDefault) holder;
             mHolder.bindView(mContext,mContentlist.get(position));
         } else {
             ViewHolderNoImg mHolder = (ViewHolderNoImg) holder;
             mHolder.bindView(mContext, mContentlist.get(position));
+        }
+
+        if (itemOnClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemOnClickListener.OnClick(mContentlist.get(position));
+                }
+            });
         }
     }
 
@@ -81,7 +97,7 @@ public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if (mContentlist.get(position).getImageurls().size() == 0) {
+        if (!mContentlist.get(position).isHavePic()) {
             return TYPE_NO_IMG;
         } else {
             return TYPE_DEFAULT;

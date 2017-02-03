@@ -1,31 +1,34 @@
 package com.max.news.MVP.home;
 
-import com.max.news.base.ActivityLifeCycleEvent;
-import com.max.news.MVP.home.channelist.pojo.ChannelListResBody;
-import com.max.news.MVP.home.channelist.pojo.ChannelTitle;
-import com.max.news.db.http.ApiDefault;
+import com.max.news.MVP.home.channelist.bean.ChannelListResBody;
+import com.max.news.MVP.home.channelist.bean.ChannelTitle;
 import com.max.news.db.http.ApiException;
-import com.max.news.db.http.HttpResult;
-import com.max.news.db.http.HttpUtil;
+import com.max.news.utils.LogUtil;
 
 import java.util.List;
 
-import rx.Observable;
 import rx.Observer;
 
-import static com.max.news.base.BaseActivity.lifecycleSubject;
-
 /**
+ * Home模块的Presenter,用于控制Home模块的业务逻辑
+ *
  * @auther MaxLiu
  * @time 2017/1/4
+ * @see HomeModel
+ * @see HomeFragment
+ * @see HomeContract
  */
 
 public class HomePresenter implements HomeContract.Presenter {
+    private static final String TAG = "HomePresenter";
 
     private HomeContract.View IView;
+    private HomeContract.Model IModel;
 
-    public HomePresenter(HomeContract.View iView){
+    public HomePresenter(HomeContract.View iView) {
         IView = iView;
+        IView.setPresenter(this);
+        IModel = new HomeModel();
     }
 
     @Override
@@ -34,10 +37,13 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
+    public void detach() {
+
+    }
+
+    @Override
     public void requestData() {
-        Observable<HttpResult<ChannelListResBody>> mObservable =
-                ApiDefault.getApiDefault().getChannelList();
-        Observer<ChannelListResBody> mObserver =
+        IModel.getChannels().subscribe(
                 new Observer<ChannelListResBody>() {
                     @Override
                     public void onCompleted() {
@@ -46,12 +52,14 @@ public class HomePresenter implements HomeContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         String mError;
                         if (e instanceof ApiException) {
                             mError = e.getMessage();
                         } else {
                             mError = "请求失败，请稍后再试";
                         }
+                        LogUtil.e(TAG,mError);
                     }
 
                     @Override
@@ -59,12 +67,8 @@ public class HomePresenter implements HomeContract.Presenter {
                         List<ChannelTitle> mChannelLists = httpResult.getChannelTitles();
                         IView.loadViewPager(mChannelLists);
                     }
-                };
-        HttpUtil.getInstance()
-                .toSubscribe(mObservable, mObserver,
-                        "ChannelTitleList",
-                        ActivityLifeCycleEvent.DESTROY,
-                        lifecycleSubject,
-                        false, false);
+                }
+        );
+
     }
 }

@@ -3,7 +3,7 @@
     <!-- Tab Height -->
     <dimen name="tab_height">40dp</dimen>
     <!-- New Photo Height -->
-    <dimen name="news_photo_height">150dp</dimen>
+    <dimen name="news_photo_height">240dp</dimen>
     <!-- News Title -->
     <dimen name="news_title_size">16sp</dimen>
     <integer name="news_title_max_lines">1</integer>

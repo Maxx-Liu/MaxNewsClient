@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,17 +14,16 @@ import android.view.ViewGroup;
 
 import com.max.news.MainActivity;
 import com.max.news.R;
-import com.max.news.base.ActivityLifeCycleEvent;
+import com.max.news.base.BaseApplication;
 import com.max.news.base.BaseFragment;
 import com.max.news.MVP.home.channelist.HomeTabFragment;
 import com.max.news.MVP.home.channelist.TabPagerPresenter;
-import com.max.news.MVP.home.channelist.pojo.ChannelTitle;
+import com.max.news.MVP.home.channelist.bean.ChannelTitle;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.subjects.PublishSubject;
 
 /**
  * 首页Fragment
@@ -38,7 +38,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     ViewPager mViewpagerHome;
     @BindView(R.id.tab_layout_home)
     TabLayout mTabLayoutHome;
-    private static PublishSubject<ActivityLifeCycleEvent> lifecycleSubject;
     private HomeContract.Presenter mPresenter;
 
     @Nullable
@@ -61,13 +60,42 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
      */
     @Override
     public void loadViewPager(final List<ChannelTitle> channelLists) {
-        mViewpagerHome.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+        mTabLayoutHome.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayoutHome.setupWithViewPager(mViewpagerHome, true);
+        // adding functionality to tab and viewpager to manage each other when a page is changed or when a tab is selected
+        mViewpagerHome.setOffscreenPageLimit(5);
+        mViewpagerHome.addOnPageChangeListener(
+                new TabLayout.TabLayoutOnPageChangeListener(mTabLayoutHome));
+
+        mTabLayoutHome.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewpagerHome.setCurrentItem(mTabLayoutHome.getSelectedTabPosition(), false);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        mViewpagerHome.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                return super.instantiateItem(container, position);
+            }
+
             @Override
             public Fragment getItem(int position) {
                 HomeTabFragment homeTabFragment =HomeTabFragment.newInstance(
                         channelLists.get(position).getChannelId(),
                         channelLists.get(position).getName());
-                new TabPagerPresenter(homeTabFragment,mTabLayoutHome,mViewpagerHome);
+                new TabPagerPresenter(homeTabFragment);
                 return homeTabFragment;
             }
 
@@ -81,35 +109,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 return channelLists.get(position).getName();
             }
         });
-
-        mTabLayoutHome.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mTabLayoutHome.setupWithViewPager(mViewpagerHome, true);
-        // adding functionality to tab and viewpager to manage each other when a page is changed or when a tab is selected
-        mViewpagerHome.addOnPageChangeListener(
-                new TabLayout.TabLayoutOnPageChangeListener(mTabLayoutHome));
-
-        mTabLayoutHome.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.i("xyz", "pos " + mTabLayoutHome.getSelectedTabPosition());
-                mViewpagerHome.setCurrentItem(mTabLayoutHome.getSelectedTabPosition(), true);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
-    public static HomeFragment newInstance(
-            PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
-        HomeFragment.lifecycleSubject = lifecycleSubject;
+    public static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(args);
@@ -122,13 +124,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         mPresenter = presenter;
     }
 
-    @Override
-    public void showLoading(String msg) {
-
-    }
 
     @Override
-    public void hideLoading() {
-
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

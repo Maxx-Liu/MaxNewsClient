@@ -13,4 +13,6 @@ public interface BasePresenter {
      * 数据加载的初始化
      */
     void start();
+
+    void detach();
 }

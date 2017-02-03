@@ -2,6 +2,7 @@ package com.max.news.base;
 
 import android.app.Application;
 
+import com.max.news.db.cache.Repository;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -14,5 +15,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Hawk.init(this).build();
+        Repository.init(getFilesDir());
     }
 }

@@ -1,6 +1,7 @@
 package com.max.news.db.http;
 
 import com.max.news.base.ActivityLifeCycleEvent;
+import com.max.news.db.cache.RetrofitCache;
 
 import rx.Observable;
 import rx.Observer;
@@ -47,6 +48,7 @@ public class HttpUtil {
                     public void call() {
                     }
                 });
-
+        RetrofitCache.load(cacheKey,observable,isSave,forceRefresh)
+                .subscribe(mObserver);
     }
 }

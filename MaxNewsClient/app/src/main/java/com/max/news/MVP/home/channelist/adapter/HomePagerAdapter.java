@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 
 import com.max.news.base.BaseFragment;
-import com.max.news.MVP.home.channelist.pojo.ChannelTitle;
+import com.max.news.MVP.home.channelist.bean.ChannelTitle;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,11 +2,11 @@ package com.max.news.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.Locale;
 
 /**
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
     //时间格式
     private static final String TIME_STYLE = "yyyyMMddHHmmss";
 

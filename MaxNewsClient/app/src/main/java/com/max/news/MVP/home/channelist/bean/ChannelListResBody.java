@@ -1,4 +1,4 @@
-package com.max.news.MVP.home.channelist.pojo;
+package com.max.news.MVP.home.channelist.bean;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

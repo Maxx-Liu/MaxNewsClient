@@ -2,7 +2,11 @@ package com.max.news.MVP.home.channelist;
 
 import com.max.news.base.BasePresenter;
 import com.max.news.base.BaseView;
-import com.max.news.MVP.home.channelist.pojo.ChannelInfoBean;
+import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
+
+import java.util.Map;
+
+import rx.Observable;
 
 /**
  * @auther MaxLiu
@@ -26,5 +30,9 @@ public interface TabPagerContract {
          * 请求数据
          */
         void requestData(String tabId,String tabTitle,int page);
+    }
+
+    interface Model {
+        Observable<ChannelInfoBean> getChannelInfo(Map<String,String> map,int page);
     }
 }

@@ -51,7 +51,7 @@ public class ApiException extends RuntimeException{
         this(getApiExceptionMessage(resultCode));
     }
 
-    ApiException(String detailMessage) {
+    public ApiException(String detailMessage) {
         super(detailMessage);
         message = detailMessage;
     }

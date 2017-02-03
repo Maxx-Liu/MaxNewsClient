@@ -8,8 +8,10 @@ import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import io.rx_cache.Reply;
 import io.rx_cache.internal.RxCache;
 import io.victoralbertos.jolyglot.JolyglotGenerics;
+import rx.functions.Func1;
 
 /**
  * @auther MaxLiu
@@ -72,5 +74,51 @@ public class HttpData extends RetrofitUtil{
     //获取单例
     public static HttpData getInstance() {
         return SingletonHolder.INSTANCE;
+    }
+
+//    public void getChannelList(Observable<HttpResult<ChannelListResBody>> observable){
+//        Observable mObservable = service.getChannelList()
+//                .map(new HttpResultFunc<HttpResult<ChannelListResBody>>());
+//        Observable observableCache = providers.getChannelList(
+//                mObservable,
+//                new DynamicKey("titles"),
+//                new EvictDynamicKey(false))
+//                .map(new HttpResultFuncCcche<HttpResult<ChannelListResBody>>());
+//    }
+
+//    public void getChannelInfo(Observable<HttpResult<ChannelListResBody>> observable){
+//        Observable mObservable = service.getChannelInfo();
+//        Observable observableCache = providers.getChannelInfo(
+//                mObservable,
+//                new DynamicKey("titles"),
+//                new EvictDynamicKey(false))
+//                .map(new HttpResultFuncCcche<HttpResult<ChannelListResBody>>());
+//    }
+
+//    /**
+//     * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
+//     *
+//     * @param <T>   Subscriber真正需要的数据类型，也就是Data部分的数据类型
+//     */
+//    private  class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
+//
+//        @Override
+//        public T call(HttpResult<T> httpResult) {
+//            if (httpResult.getCode() !=1 ) {
+//                throw new ApiException(httpResult);
+//            }
+//            return httpResult.getData();
+//        }
+//    }
+
+    /**
+     * 用来统一处理RxCacha的结果
+     */
+    private  class HttpResultFuncCcche<T> implements Func1<Reply<T>, T> {
+
+        @Override
+        public T call(Reply<T> httpResult) {
+            return httpResult.getData();
+        }
     }
 }

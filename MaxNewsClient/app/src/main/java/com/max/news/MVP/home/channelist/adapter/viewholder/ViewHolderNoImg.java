@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.max.news.R;
-import com.max.news.MVP.home.channelist.pojo.ChannelInfoBean;
+import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

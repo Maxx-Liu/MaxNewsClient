@@ -2,15 +2,14 @@ package com.max.news.base;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 
 import com.max.news.utils.AppManager;
 import com.max.news.widget.BaseDialogFragment;
 import com.max.news.widget.DialogFactory;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
-import butterknife.ButterKnife;
 import rx.subjects.PublishSubject;
 
 /**
@@ -23,7 +22,7 @@ import rx.subjects.PublishSubject;
  * @since MaxNews-1.0.0
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
+public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener{
 
     public static final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject = PublishSubject.create();
 
@@ -70,12 +69,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         lifecycleSubject.onNext(ActivityLifeCycleEvent.CREATE);
         // 竖屏锁定
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (mAllowFullScreen) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE); // 取消标题
+            supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         AppManager.getAppManager().addActivity(this);
         initlayout();
-        ButterKnife.bind(this);
     }
 
     @Override

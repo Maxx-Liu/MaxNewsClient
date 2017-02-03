@@ -14,14 +14,4 @@ public interface BaseView<T> {
      * @param presenter 传入的对应presenter实例
      */
     void setPresenter(T presenter);
-
-    /**
-     * 显示加载Dialog
-     */
-    void showLoading(String msg);
-
-    /**
-     * 隐藏加载Dialog
-     */
-    void hideLoading();
 }
