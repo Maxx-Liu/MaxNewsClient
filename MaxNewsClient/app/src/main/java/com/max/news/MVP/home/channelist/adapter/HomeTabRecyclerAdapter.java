@@ -52,6 +52,7 @@ public class HomeTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         mPagebean.getContentlist()) {
                     mContentlist.add(mContent);
                 }
+                notifyDataSetChanged();
             }
         }
     }

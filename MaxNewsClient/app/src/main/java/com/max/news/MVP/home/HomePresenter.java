@@ -5,7 +5,10 @@ import com.max.news.MVP.home.channelist.bean.ChannelTitle;
 import com.max.news.db.http.ApiException;
 import com.max.news.utils.LogUtil;
 
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.logging.Logger;
 
 import rx.Observer;
 

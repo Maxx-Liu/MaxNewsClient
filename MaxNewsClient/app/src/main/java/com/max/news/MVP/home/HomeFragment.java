@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -12,11 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.max.news.MVP.home.channelist.TabPagerFragment;
 import com.max.news.MainActivity;
 import com.max.news.R;
-import com.max.news.base.BaseApplication;
 import com.max.news.base.BaseFragment;
-import com.max.news.MVP.home.channelist.HomeTabFragment;
 import com.max.news.MVP.home.channelist.TabPagerPresenter;
 import com.max.news.MVP.home.channelist.bean.ChannelTitle;
 
@@ -92,7 +90,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public Fragment getItem(int position) {
-                HomeTabFragment homeTabFragment =HomeTabFragment.newInstance(
+                TabPagerFragment homeTabFragment = TabPagerFragment.newInstance(
                         channelLists.get(position).getChannelId(),
                         channelLists.get(position).getName());
                 new TabPagerPresenter(homeTabFragment);

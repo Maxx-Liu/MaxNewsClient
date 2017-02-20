@@ -1,18 +1,15 @@
 package com.max.news.MVP.home.channelist;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
@@ -30,7 +27,7 @@ import butterknife.ButterKnife;
  * @time 2016/12/15
  */
 
-public class HomeTabFragment extends BaseFragment implements
+public class TabPagerFragment extends BaseFragment implements
         TabPagerContract.View , BaseRefreshListener,HomeTabRecyclerAdapter.ItemOnClickListener{
     private static final String PARAMS_ID = "tab_id";
     private static final String PARAMS_TITLE = "tab_title";
@@ -45,11 +42,11 @@ public class HomeTabFragment extends BaseFragment implements
     private TabPagerContract.Presenter mPresenter;
     private static ArrayMap<String, HomeTabRecyclerAdapter> mAdapters = new ArrayMap<>();
 
-    public static HomeTabFragment newInstance(String id, String title) {
+    public static TabPagerFragment newInstance(String id, String title) {
         Bundle args = new Bundle();
         args.putString(PARAMS_ID, id);
         args.putString(PARAMS_TITLE, title);
-        HomeTabFragment fragment = new HomeTabFragment();
+        TabPagerFragment fragment = new TabPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,6 +55,11 @@ public class HomeTabFragment extends BaseFragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -70,27 +72,31 @@ public class HomeTabFragment extends BaseFragment implements
         return mView;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     /**
      * Init home RecyclerView
      */
     @Override
     public void loadRecyclerView(ChannelInfoBean.Pagebean pagebean) {
-        HomeTabItemDecoration mDecoration = new HomeTabItemDecoration(
-                mContext, HomeTabItemDecoration.HORIZONTAL_LIST);
-        mRecyclerViewTab.setLayoutManager(
-                new LinearLayoutManager(
-                        getParentFragment().getActivity(),
-                        LinearLayoutManager.VERTICAL,
-                        false));
+//        HomeTabItemDecoration mDecoration = new HomeTabItemDecoration(
+//                mContext, HomeTabItemDecoration.HORIZONTAL_LIST);
         if (mHomeTabAdapter == null) {
+            mRecyclerViewTab.setLayoutManager(
+                    new LinearLayoutManager(
+                            getParentFragment().getActivity(),
+                            LinearLayoutManager.VERTICAL,
+                            false));
             mHomeTabAdapter = new HomeTabRecyclerAdapter(
                     getParentFragment().getActivity(),this);
             mRecyclerViewTab.setAdapter(mHomeTabAdapter);
+            mRecyclerViewTab.addItemDecoration(
+                    new DividerItemDecoration(mContext, DividerItemDecoration.HORIZONTAL));
         }
         mHomeTabAdapter.addPagebean(pagebean);
-        mRecyclerViewTab.addItemDecoration(
-                new DividerItemDecoration(mContext, DividerItemDecoration.HORIZONTAL));
-
         mPullRefresh.finishRefresh();
         mPullRefresh.finishLoadMore();
 
@@ -108,17 +114,33 @@ public class HomeTabFragment extends BaseFragment implements
         refresh();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void onStop() {
         super.onStop();
         mAdapters.remove(getArguments().getString(PARAMS_ID));
+        mPullRefresh.finishRefresh();
+        mPullRefresh.finishLoadMore();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detach();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
     @Override

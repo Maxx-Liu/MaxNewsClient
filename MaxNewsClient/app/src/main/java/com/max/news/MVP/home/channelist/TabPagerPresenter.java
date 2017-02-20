@@ -74,7 +74,7 @@ public class TabPagerPresenter implements TabPagerContract.Presenter {
                         } else {
                             mError = "请求失败，请稍后再试";
                         }
-                        //LogUtil.e("Tab", mError);
+                        LogUtil.e("Tab", mError);
                         Log.e("Tab", "Failed!!!" + e.toString());
                     }
 

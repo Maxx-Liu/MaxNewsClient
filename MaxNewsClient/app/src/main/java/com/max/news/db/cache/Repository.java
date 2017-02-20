@@ -8,12 +8,9 @@ import com.max.news.db.http.ApiException;
 import com.max.news.db.http.ApiService;
 import com.max.news.db.http.HttpResult;
 import com.max.news.db.http.RetrofitUtil;
-import com.max.news.db.http.RxHelper;
 import com.max.news.db.http.Url;
-import com.trello.rxlifecycle.components.RxActivity;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Map;
 
 import io.rx_cache.DynamicKey;
@@ -92,10 +89,10 @@ public class Repository {
     }
 
     /**
-     * 利用泛型方法处理Observable，使获取后的Observable只包含数据，省去了每次请求的解封装
+     * 利用静态泛型方法处理Observable，使获取后的Observable只包含数据，省去了每次请求的解封装
      *
-     * @param <T> 声明一个泛型 T
-     * @return Observable.Transformer<HttpResult<T>,T>对象
+     * @param <T> 声明一个泛型 T,表示返回类型中包含泛型
+     * @return Observable.Transformer对象
      */
     private static <T> Observable.Transformer<Reply<HttpResult<T>>, T> handleResult() {
         return new Observable.Transformer<Reply<HttpResult<T>>, T>() {

@@ -3,6 +3,8 @@ package com.max.news.utils;
 import com.max.news.BuildConfig;
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONObject;
+
 /**
  * @auther MaxLiu
  * @time 2016/12/26
@@ -41,6 +43,12 @@ public class LogUtil {
     public static void i(String msg) {
         if(isDebug) {
             Logger.i(msg);
+        }
+    }
+
+    public static void json(JSONObject jsonObject){
+        if(isDebug){
+            Logger.json(jsonObject.toString());
         }
     }
 }
