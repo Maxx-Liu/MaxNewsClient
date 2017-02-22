@@ -1,5 +1,6 @@
 package com.max.news.MVP.home.channelist;
 
+import com.max.news.MVP.home.channelist.bean.Pagebean;
 import com.max.news.base.BasePresenter;
 import com.max.news.base.BaseView;
 import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
@@ -13,7 +14,7 @@ import rx.Observable;
  * @time 2017/1/4
  */
 
-public interface TabPagerContract {
+interface TabPagerContract {
 
     interface View extends BaseView<Presenter>{
 
@@ -21,7 +22,7 @@ public interface TabPagerContract {
          * 加载RecyclerView
          * @param pagebean 数据Bean
          */
-        void loadRecyclerView(ChannelInfoBean.Pagebean pagebean);
+        void loadRecyclerView(Pagebean pagebean);
     }
 
     interface Presenter extends BasePresenter{

@@ -1,24 +1,15 @@
 package com.max.news.MVP.home.channelist;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
-import com.max.news.base.ActivityLifeCycleEvent;
-import com.max.news.base.BaseActivity;
 import com.max.news.db.http.ApiException;
-import com.max.news.db.http.ApiService;
-import com.max.news.db.http.HttpResult;
-import com.max.news.db.http.HttpUtil;
-import com.max.news.db.http.RetrofitUtil;
 import com.max.news.db.http.Url;
 import com.max.news.utils.LogUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import rx.Observable;
 import rx.Observer;
 
 /**

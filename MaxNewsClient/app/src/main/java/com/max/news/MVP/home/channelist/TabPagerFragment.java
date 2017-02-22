@@ -3,7 +3,6 @@ package com.max.news.MVP.home.channelist;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +12,11 @@ import android.view.ViewGroup;
 
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.max.news.MVP.home.channelist.bean.ContentlistBean;
+import com.max.news.MVP.home.channelist.bean.Pagebean;
 import com.max.news.R;
 import com.max.news.base.BaseFragment;
 import com.max.news.MVP.home.channelist.adapter.HomeTabRecyclerAdapter;
-import com.max.news.MVP.home.channelist.adapter.viewholder.HomeTabItemDecoration;
-import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +39,6 @@ public class TabPagerFragment extends BaseFragment implements
     private int mPage = 1;
     private HomeTabRecyclerAdapter mHomeTabAdapter;
     private TabPagerContract.Presenter mPresenter;
-    private static ArrayMap<String, HomeTabRecyclerAdapter> mAdapters = new ArrayMap<>();
 
     public static TabPagerFragment newInstance(String id, String title) {
         Bundle args = new Bundle();
@@ -81,7 +79,7 @@ public class TabPagerFragment extends BaseFragment implements
      * Init home RecyclerView
      */
     @Override
-    public void loadRecyclerView(ChannelInfoBean.Pagebean pagebean) {
+    public void loadRecyclerView(Pagebean pagebean) {
 //        HomeTabItemDecoration mDecoration = new HomeTabItemDecoration(
 //                mContext, HomeTabItemDecoration.HORIZONTAL_LIST);
         if (mHomeTabAdapter == null) {
@@ -122,7 +120,6 @@ public class TabPagerFragment extends BaseFragment implements
     @Override
     public void onStop() {
         super.onStop();
-        mAdapters.remove(getArguments().getString(PARAMS_ID));
         mPullRefresh.finishRefresh();
         mPullRefresh.finishLoadMore();
     }
@@ -158,7 +155,7 @@ public class TabPagerFragment extends BaseFragment implements
     }
 
     @Override
-    public void OnClick(ChannelInfoBean.Pagebean.ContentlistBean mContentlistBean) {
+    public void OnClick(ContentlistBean mContentlistBean) {
 
     }
 }

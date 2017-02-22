@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.max.news.MVP.home.channelist.bean.ContentlistBean;
 import com.max.news.R;
 import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 
@@ -21,13 +22,13 @@ public class ViewHolderNoImg extends RecyclerView.ViewHolder {
     TextView mTitle;
     @BindView(R.id.news_content)
     TextView mContent;
+
     public ViewHolderNoImg(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(Context context,
-                         ChannelInfoBean.Pagebean.ContentlistBean mContentlistBean){
+    public void bindView(ContentlistBean mContentlistBean) {
         mTitle.setText(mContentlistBean.getTitle());
         mContent.setText(mContentlistBean.getDesc());
     }

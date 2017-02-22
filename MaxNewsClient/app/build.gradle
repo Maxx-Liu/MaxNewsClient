@@ -83,4 +83,6 @@ dependencies {
     compile 'javax.inject:javax.inject:1'
     //pull refresh
     compile 'com.jwenfeng.pulltorefresh:library:1.0.1'
+    // 百分比布局
+    compile 'com.android.support:percent:25.1.0'
 }

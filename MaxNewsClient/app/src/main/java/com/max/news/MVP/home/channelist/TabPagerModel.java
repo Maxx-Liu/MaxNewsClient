@@ -6,7 +6,6 @@ import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 import com.max.news.db.cache.Repository;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import rx.Observable;
 
@@ -15,11 +14,11 @@ import rx.Observable;
  * @time 2017/2/3
  */
 
-public class TabPagerModel implements TabPagerContract.Model {
+class TabPagerModel implements TabPagerContract.Model {
 
     private Repository repository;
 
-    public TabPagerModel(){
+    TabPagerModel(){
         repository = new Repository();
     }
 

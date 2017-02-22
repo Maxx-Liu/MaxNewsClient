@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.max.news.MVP.home.channelist.bean.ContentlistBean;
 import com.max.news.R;
 import com.max.news.MVP.home.channelist.bean.ChannelInfoBean;
 import com.max.news.utils.img.GlideUtil;
@@ -32,8 +33,7 @@ public class ViewHolderDefault extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(Context context,
-                         ChannelInfoBean.Pagebean.ContentlistBean mContentlistBean) {
+    public void bindView(Context context, ContentlistBean mContentlistBean) {
         mTitle.setText(mContentlistBean.getTitle());
         mContent.setText(mContentlistBean.getDesc());
         LinkedTreeMap list = (LinkedTreeMap) mContentlistBean.getImageurls().get(0);

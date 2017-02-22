@@ -4,6 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.ActionBarContainer;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -40,6 +44,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     FrameLayout mFragmentMain;
     @BindView(R.id.bottom_navigation)
     BottomNavigationBar mBottomNavigation;
+    @BindView(R.id.tool_bar)
+    Toolbar toolBar;
+    @BindView(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
     //private BottomBarTab nearby;
     //private BadgeItem badge;
     private HomeFragment mHomeFragment;
@@ -76,6 +84,21 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 //    }
 
     private void initView() {
+        // 设置标题样式
+        toolBar.setTitle(getString(R.string.app_name));
+        toolBar.setTitleTextColor(Color.WHITE);
+        // 设置支持 ActionBar
+        setSupportActionBar(toolBar);
+        // 实现抽屉功能
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolBar,
+                R.string.open,
+                R.string.close
+        );
+        drawerToggle.syncState();
+        drawerLayout.addDrawerListener(drawerToggle);
 //        mBottomBar.setOnTabSelectListener(this);
 //        mBottomBar.setOnTabReselectListener(this);
 
@@ -137,7 +160,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 if (mHomeFragment == null) {
                     mHomeFragment = HomeFragment.newInstance();
                     beginTransaction.add(R.id.fragment_main, mHomeFragment);
-                } else{
+                } else {
                     beginTransaction.show(mHomeFragment);
                 }
                 break;
@@ -145,7 +168,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 if (mNearFragment == null) {
                     mNearFragment = NearFragment.newInstance();
                     beginTransaction.add(R.id.fragment_main, mNearFragment);
-                } else{
+                } else {
                     beginTransaction.show(mNearFragment);
                 }
                 break;
@@ -153,7 +176,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 if (mMyFragment == null) {
                     mMyFragment = MyFragment.newInstance();
                     beginTransaction.add(R.id.fragment_main, mMyFragment);
-                } else{
+                } else {
                     beginTransaction.show(mMyFragment);
                 }
                 break;
