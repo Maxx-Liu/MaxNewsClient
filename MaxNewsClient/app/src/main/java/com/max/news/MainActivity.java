@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private MyFragment mMyFragment;
 
     @Override
-    public void initlayout() {
+    public void initLayout() {
         setContentView(R.layout.activity_main);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);

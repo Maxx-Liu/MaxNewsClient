@@ -31,7 +31,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     // 是否允许全屏
     private boolean mAllowFullScreen = true;
 
-    public abstract void initlayout();
+    public abstract void initLayout();
     public abstract void widgetClick(View v);
 
     public BaseDialogFragment.BaseDialogListener getDialogListener(){
@@ -75,7 +75,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
             supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         AppManager.getAppManager().addActivity(this);
-        initlayout();
+        initLayout();
     }
 
     @Override

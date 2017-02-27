@@ -5,4 +5,5 @@
     <string name="bottom_navigation_personal">个人</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
+    <string name="transition_name_new_details">首页列表图片共享元素变换动画</string>
 </resources>
